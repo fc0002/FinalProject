@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item1"
+        android:title="@string/favouriteItem"
+        android:icon="@drawable/favourite"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/item2"
+        android:title="@string/goBackItem"
+        android:icon="@drawable/goBack"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/item3"
+        android:title="@string/author"
+        android:icon="@drawable/author"
+        app:showAsAction="always"/>
+
+</menu>

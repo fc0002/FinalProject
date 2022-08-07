@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnSearch" type="id" />
+    <item name="artSectionName" type="id" />
+    <item name="articleName" type="id" />
+    <item name="searchMain" type="id" />
+    <item name="searchEdit" type="id" />
+</resources>
