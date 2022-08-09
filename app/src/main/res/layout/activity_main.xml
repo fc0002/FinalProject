@@ -1,36 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="150dp"
     android:orientation="vertical"
-    android:layout_marginTop="10dp"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="164dp"
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/Title"
-        android:layout_width="400dp"
+        android:id="@+id/searchEdt"
+        android:layout_width="410dp"
         android:layout_height="wrap_content"
-        android:hint="@string/search"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textAlignment="center"/>
+        android:hint="@string/main"
+        android:paddingTop="50dp"
+        android:paddingBottom="10dp"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
     <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button"
-        android:layout_marginTop="10dp"
+        android:id="@+id/btnSearch"
+        android:layout_width="165dp"
+        android:layout_height="62dp"
         android:layout_gravity="center"
-        android:backgroundTint="@android:color/black"/>
+        android:background="@color/colorPrimary"
+        android:text="@string/searchBtn"
+        android:textColor="@android:color/white"
+        app:cornerRadius="10dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="41dp"
+        android:outlineAmbientShadowColor="@color/colorPrimary"
+        android:paddingTop="100dp"
+        android:progress="25" />
+
 
 </LinearLayout>

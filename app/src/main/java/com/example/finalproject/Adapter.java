@@ -5,9 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import androidx.collection.CircularArray;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -15,13 +16,13 @@ public class Adapter extends BaseAdapter {
 
     private ArrayList<Article> articleArrayList;
     private Context context;
-    private TextView artName;
-    private TextView artTitle;
-    private TextView artUrl;
-    private TextView artSection;
     private LayoutInflater inflater;
+    private TextView artcTitle;
+    private TextView artcUrl;
+    private TextView artcSection;
 
     public Adapter(ArrayList<Article> articleArrayList, Context context) {
+
         this.articleArrayList = articleArrayList;
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -43,25 +44,30 @@ public class Adapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
+
         return articleArrayList.get(position).getId();
+
     }
 
     @Override
     public View getView(int position, View newView, ViewGroup parent) {
-        View v;
 
+        View v;
         v = inflater.inflate(R.layout.search_detail, parent, false);
 
-        artName = v.findViewById(R.id.articleName);
-        artTitle = v.findViewById(R.id.articleTitle);
-        artUrl = v.findViewById(R.id.articleUrl);
-        artSection = v.findViewById(R.id.artSectionName);
 
-        artName.setText(articleArrayList.get(position).getArticleName());
-        artTitle.setText(articleArrayList.get(position).getTitle());
-        artUrl.setText(articleArrayList.get(position).getUrl());
-        artSection.setText(articleArrayList.get(position).getSection());
+        artcTitle = v.findViewById(R.id.article_title);
+        artcUrl = v.findViewById(R.id.article_url);
+        Object artSection = v.findViewById(R.id.article_section);
+
+
+        artcTitle.setText(articleArrayList.get(position).getTitle());
+        artcUrl.setText(articleArrayList.get(position).getUrl());
+        artcSection.setText(articleArrayList.get(position).getSection());
 
         return v;
+
     }
+
 }
+

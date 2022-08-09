@@ -1,0 +1,15 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<item
+    android:icon="@drawable/search"
+    android:id="@+id/backToSearch"
+    android:title="@string/backToSearch" />
+
+    <item
+    android:icon="@drawable/back"
+    android:id="@+id/goBack"
+    android:title="@string/goBack" />
+
+</menu>

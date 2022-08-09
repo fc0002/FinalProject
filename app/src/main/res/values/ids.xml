@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="btnSearch" type="id" />
-    <item name="artSectionName" type="id" />
-    <item name="articleName" type="id" />
-    <item name="searchMain" type="id" />
-    <item name="searchEdit" type="id" />
+    <item name="article_section" type="id">article Section</item>
+    <item name="simpleProgressBar" type="id">simpleProgressBar</item>
+    <item name="btnSearch" type="id">btnSearch</item>
+    <item name="favouriteItem" type="id">favouriteItem</item>
+    <item name="author" type="id">author</item>
+    <item name="searchMain" type="id">searchMain</item>
 </resources>

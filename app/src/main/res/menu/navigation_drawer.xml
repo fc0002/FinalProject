@@ -1,21 +1,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/item1"
-        android:title="@string/favouriteItem"
-        android:icon="@drawable/favourite"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/item2"
-        android:title="@string/goBackItem"
-        android:icon="@drawable/goBack"
-        app:showAsAction="always"/>
 
     <item
         android:id="@+id/item3"
-        android:title="@string/author"
-        android:icon="@drawable/author"
-        app:showAsAction="always"/>
+        android:icon="@drawable/home"
+        android:orderInCategory="50"
+        android:title="@string/home"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/item2"
+        android:icon="@drawable/favourite"
+        android:orderInCategory="50"
+        android:title="@string/favouriteItem"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/item1"
+        android:icon="@drawable/information"
+        android:orderInCategory="50"
+        android:title="@string/information"
+        app:showAsAction="ifRoom" />
 
 </menu>

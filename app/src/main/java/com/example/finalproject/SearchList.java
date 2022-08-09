@@ -1,151 +1,213 @@
 package com.example.finalproject;
 
-import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.Context;
+import com.google.android.material.snackbar.Snackbar;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class SearchLists extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * The type Search list.
+ */
+public class SearchList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String myPreferences = "File";
     private static final String Search = "Search";
-    private EditText searchEdit;
+    private EditText searchEdt;
     private Button searchBtn;
-    private String textSearch = " ";
+    private String textSearch = " " ;
     private String searchStr;
-    private SharedPreferences pref;
+    private  SharedPreferences pref;
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
+    private NavigationView navView;
     private Intent intent;
     private AlertDialog.Builder alertdialogBuilder;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_search_list);
+
 
         searchBtn = (Button) findViewById(R.id.searchMain);
-        pref = getSharedPreferences(myPreferences, context.MODE_PRIVATE);
+        pref = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
         loadSearch();
 
-        searchEdit = (EditText) findViewById(R.id.searchEdit);
-        searchEdit.setText(textSearch);
+        searchEdt = (EditText) findViewById(R.id.searchEdt);
+        searchEdt.setText(textSearch);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                searchStr = searchEdit.getText().toString();
+
+                searchStr = searchEdt.getText().toString();
 
                 if (!searchStr.isEmpty()) {
-                    Intent goToProfile = new Intent(SearchLists.this, SearchArticle.class);
+
+                    Intent goToProfile = new Intent(SearchList.this, SearchArticle.class);
                     goToProfile.putExtra("SEARCH", textSearch);
                     startActivity(goToProfile);
+
+
 
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.searchEmpty), Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
+        // updateData();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar)findViewById(R.id.toolbarT);
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this,
+                drawer, toolbar, R.string.open, R.string.close);
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = findViewById(R.id.navigation_view);
-        navigationView.set.NavigationItemSelectedListener(this);
+        navView = findViewById(R.id.nav_view);
+        navView.setNavigationItemSelectedListener(this);
+
+
     }
 
-    private void setSupportActionBar(Toolbar toolbar) {
+    /**
+     *
+     * @param menu
+     * @return
+     */
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+
     }
 
     protected void onPause() {
         super.onPause();
 
-        searchEdit = (EditText) findViewById(R.id.searchEdit);
+        searchEdt = (EditText) findViewById(R.id.searchEdt);
         pref = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
 
-        searchStr = searchEdit.getText().toString();
+        searchStr = searchEdt.getText().toString();
+
+        //add editor
         SharedPreferences.Editor edit = pref.edit();
+        //to save data to a file
         edit.putString(Search, searchStr);
         edit.commit();
+
     }
+
 
     public void loadSearch() {
 
         pref = getSharedPreferences(myPreferences, Context.MODE_PRIVATE);
-        textSearch = pref.getString(Search, " ");
+        textSearch = pref.getString(Search, "");
+
     }
+    //update the view
+    //public void updateData() {
+
+    // searchEdt = (EditText) findViewById(R.id.searchEdt);
+
+    // searchEdt .setText(textSearch);
+    //  searchEdt .setText("");
+    //  }
 
     @Override
-    public boolean onOptionsItemsSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
+
             case R.id.item1:
+
+
                 break;
+
             case R.id.item2:
-                ;
+                alertdialogBuilder = new AlertDialog.Builder(SearchList.this);
+                alertdialogBuilder.setTitle(getString(R.string.alertDialog));
+
+
                 alertdialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+
 
                     }
                 });
                 AlertDialog dialog = alertdialogBuilder.create();
                 dialog.show();
+
+
                 break;
         }
         return true;
     }
 
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.favouriteItem:
 
-                itent = new Intent(SearchList.this, Favourite_list.class);
+
+                intent = new Intent(SearchList.this, Favourite_list.class);
                 startActivity(intent);
 
                 break;
 
             case R.id.goBack:
-                itent = new Intent(SearchList.this, MainActivity.class);
+
+                intent = new Intent(SearchList.this, MainActivity.class);
                 startActivity(intent);
 
 
+                break;
+
             case R.id.author:
 
-                Toast.makeText(SearchLists.this, getString(R.string.author), Toast.LENGTH_SHORT).show();
+
+
+                Toast.makeText(SearchList.this, getString(R.string.author), Toast.LENGTH_SHORT) .show();
+
         }
+
         drawer.closeDrawer(GravityCompat.START);
         return false;
     }
 
+
 }
-
-
-
 
