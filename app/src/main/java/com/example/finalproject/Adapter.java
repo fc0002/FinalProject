@@ -11,8 +11,7 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
-public class
-Adapter extends BaseAdapter {
+public class Adapter extends BaseAdapter {
 
     private ArrayList<Article> articleArrayList;
     private Context context;
@@ -44,7 +43,6 @@ Adapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-
         return articleArrayList.get(position).getId();
 
     }
@@ -60,7 +58,6 @@ Adapter extends BaseAdapter {
         artcUrl = v.findViewById(R.id.article_url);
         Object artSection = v.findViewById(R.id.article_section);
 
-
         artcTitle.setText(articleArrayList.get(position).getTitle());
         artcUrl.setText(articleArrayList.get(position).getUrl());
         artcSection.setText(articleArrayList.get(position).getSection());
@@ -68,5 +65,4 @@ Adapter extends BaseAdapter {
         return v;
 
     }
-
 }

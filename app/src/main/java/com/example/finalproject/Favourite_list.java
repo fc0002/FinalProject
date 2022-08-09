@@ -41,7 +41,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
     private EditText articleTitle;
     private EditText articleUrl;
     private EditText articleSection;
-    private String nameStr;
     private String titleStr;
     private String urlStr;
     private String sectionStr;
@@ -55,7 +54,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
     private ContentValues newRowValues;
     private SQLiteDatabase db;
     private com.example.finalproject.Article article;
-    private String artName;
     private String artTitle;
     private String artUrl;
     private String artSection;
@@ -119,11 +117,12 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 titleStr = articleTitle.getText().toString();
                 urlStr = articleUrl.getText().toString();
                 sectionStr[0] = articleSection.getText().toString();
-                if (!nameStr.isEmpty() && !titleStr.isEmpty() && !urlStr.isEmpty()) {
+                if (!titleStr.isEmpty() && !urlStr.isEmpty() && !sectionStr.isEmpty()) {
                     newRowValues.put(MyOpener.COL_TITLE, titleStr);
                     newRowValues.put(MyOpener.COL_URL, urlStr);
                     newRowValues.put(MyOpener.COL_SECTION, sectionStr[0]);
                     newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
+
                     article = new com.example.finalproject.Article(titleStr, urlStr, sectionStr,   true, newId);
                     articleArrayList.add(article);
                     articleTitle.setText("");
@@ -154,7 +153,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 article = articleArrayList.get(position);
-
 
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(article.getUrl()));
@@ -226,11 +224,9 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 alertdialogBuilder = new AlertDialog.Builder(Favourite_list.this);
                 alertdialogBuilder.setTitle(getString(R.string.helpMenu));
 
-
                 alertdialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 
                     }
                 });
@@ -260,7 +256,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 intent = new Intent(Favourite_list.this, MainActivity.class);
                 startActivity(intent);
                 break;
-
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -316,7 +311,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
     }
 
-
     //Delete
     protected void   deleteArticleFromDB(com.example.finalproject.Article article)
     {
@@ -325,9 +319,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
     //Print
     public void printCursor(Cursor cursor, int version) {
-
         int colIndex = cursor.getColumnIndex(MyOpener.COL_TITLE);
-
         cursor.moveToFirst();
 
         //Not working error, ????
@@ -337,9 +329,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                     + "Url:  " + (cursor.getString(cursor.getColumnIndex(MyOpener.COL_URL)))));
             cursor.moveToNext();
         }
-
     }
-
 }
 
 
