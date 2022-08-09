@@ -36,4 +36,5 @@
     <string name="alertDialog">Please enter an article in the search bar. </string>
     <string name="alertDialog2">Please click on any button</string>
     <string name="favouriteItem">Favourite List</string>
+    <string name="type_here">type here...</string>
 </resources>
