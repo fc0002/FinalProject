@@ -22,12 +22,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.Context;
 import com.google.android.material.snackbar.Snackbar;
-
 import com.google.android.material.navigation.NavigationView;
 
-/**
- * The type Search list.
- */
+//Search List
 public class SearchList extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String myPreferences = "File";
     private static final String Search = "Search";
@@ -77,8 +74,8 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
 
             }
         });
-        // updateData();
 
+        //updates
         toolbar = (Toolbar)findViewById(R.id.toolbarT);
         setSupportActionBar(toolbar);
 
@@ -95,19 +92,13 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
 
     }
 
-    /**
-     *
-     * @param menu
-     * @return
-     */
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
         return true;
-
+    //return
     }
 
     protected void onPause() {
@@ -118,14 +109,13 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
 
         searchStr = searchEdt.getText().toString();
 
-        //add editor
+        //editor
         SharedPreferences.Editor edit = pref.edit();
-        //to save data to a file
+
         edit.putString(Search, searchStr);
         edit.commit();
 
     }
-
 
     public void loadSearch() {
 
@@ -133,14 +123,6 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
         textSearch = pref.getString(Search, "");
 
     }
-    //update the view
-    //public void updateData() {
-
-    // searchEdt = (EditText) findViewById(R.id.searchEdt);
-
-    // searchEdt .setText(textSearch);
-    //  searchEdt .setText("");
-    //  }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -148,7 +130,6 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
         switch (item.getItemId()) {
 
             case R.id.item1:
-
 
                 break;
 
@@ -161,19 +142,14 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-
-
                     }
                 });
-                AlertDialog dialog = alertdialogBuilder.create();
-                dialog.show();
-
+                AlertDialog dialog = alertdialogBuilder.create();dialog.show();
 
                 break;
         }
         return true;
     }
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -181,7 +157,6 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
         switch (item.getItemId()) {
 
             case R.id.favouriteItem:
-
 
                 intent = new Intent(SearchList.this, Favourite_list.class);
                 startActivity(intent);
@@ -192,22 +167,14 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
 
                 intent = new Intent(SearchList.this, MainActivity.class);
                 startActivity(intent);
-
-
                 break;
 
             case R.id.author:
 
-
-
                 Toast.makeText(SearchList.this, getString(R.string.author), Toast.LENGTH_SHORT) .show();
-
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return false;
     }
-
-
 }
-

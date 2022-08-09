@@ -9,10 +9,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 
-public class Adapter extends BaseAdapter {
+public class
+Adapter extends BaseAdapter {
 
     private ArrayList<Article> articleArrayList;
     private Context context;
@@ -70,4 +70,3 @@ public class Adapter extends BaseAdapter {
     }
 
 }
-

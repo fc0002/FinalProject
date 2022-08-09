@@ -74,8 +74,6 @@ public class Article {
     public long getId () {
         return id;
     }
-
-
     {
     }
 }

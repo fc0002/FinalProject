@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,11 +25,10 @@ import android.widget.Toast;
 import android.util.Log;
 import java.util.ArrayList;
 import android.database.Cursor;
-
 import com.google.android.material.navigation.NavigationView;
-
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 import com.google.android.material.snackbar.Snackbar;
+
 //Favourite list
 public class Favourite_list extends AppCompatActivity  implements OnNavigationItemSelectedListener  {
 
@@ -276,25 +274,24 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
         db = dbOpener.getWritableDatabase();
 
         String[] columns = {MyOpener.COL_ID, MyOpener.COL_TITLE, MyOpener.COL_URL, MyOpener.COL_SECTION,};
+
         //cursor
         results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
         printCursor(results, db.getVersion());
 
         //Now results match the query.
-
         // find the column indices:
         int idColumnIndex = results.getColumnIndex(MyOpener.COL_ID);
         int titleColumnIndex = results.getColumnIndex(MyOpener.COL_TITLE);
         int urlColumnIndex = results.getColumnIndex(MyOpener.COL_URL);
-        int nameColumnIndex = results.getColumnIndex(MyOpener.COL_SECTION);
+        int sectionColumnIndex = results.getColumnIndex(MyOpener.COL_SECTION);
         results.moveToPosition(-1);
 
         while (results.moveToNext()) {
 
             titleStr = results.getString(titleColumnIndex);
             urlStr= results.getString(urlColumnIndex);
-            int sectionColumnIndex = 0;
-            String sectionStr = results.getString(sectionColumnIndex);
+            sectionStr= results.getString(sectionColumnIndex);
             newId = results.getLong(idColumnIndex);
 
 
@@ -308,7 +305,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
     //Update
     protected void updateArticle(com.example.finalproject.Article article)
     {
-        //Create a  to represent a database row:
+        //Represents a database row:
         contentValues = new ContentValues();
         contentValues.put(MyOpener.COL_TITLE, article.getTitle());
         contentValues.put(MyOpener.COL_URL, article.getUrl());
@@ -321,7 +318,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
 
     //Delete
-    protected void   deleteArticleFromDB(com.example.fp.Article article)
+    protected void   deleteArticleFromDB(com.example.finalproject.Article article)
     {
         db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + " = ?", new String[]{Long.toString(article.getId())});
     }
@@ -333,6 +330,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
         cursor.moveToFirst();
 
+        //Not working error, ????
         for (int i = 0; i < cursor.getCount(); i++) {
             String fn = cursor.getString(colIndex);
             Log.i("Section: ", (cursor.getString(cursor.getColumnIndex(MyOpener.COL_SECTION)) + " Title: " + (cursor.getString(cursor.getColumnIndex(MyOpener.COL_TITLE)))

@@ -29,7 +29,6 @@ import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -189,8 +188,7 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.connect();
                 InputStream response = urlConnection.getInputStream();
-                //JSON reading:
-                //Build the entire string response:
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response));
 
                 String line = null;
@@ -217,7 +215,7 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
 
         }
 
-
+        //JSON
         @SuppressLint("WrongThread")
         @Override
         protected void onPostExecute(String result) {
@@ -237,7 +235,7 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
                         article = new Article();
                         JSONObject anObject = jsonArray.getJSONObject(i);
 
-                        // Pulling items from the array
+                        //Array
                         articleName = anObject.getString("sectionSection");
                         publishProgress(30);
                         articleTitle = anObject.getString("webTitle");
@@ -284,7 +282,3 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
 
     }
 }
-
-
-
-
