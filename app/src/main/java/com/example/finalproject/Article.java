@@ -11,6 +11,7 @@ public class Article {
 
 
     public Article() {
+
     }
 
     //parameters within the article
@@ -73,8 +74,6 @@ public class Article {
     //gets id
     public long getId () {
         return id;
-    }
-    {
     }
 }
 
