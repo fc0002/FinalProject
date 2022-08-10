@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,25 +26,25 @@ import android.widget.Toast;
 import android.util.Log;
 import java.util.ArrayList;
 import android.database.Cursor;
+
 import com.google.android.material.navigation.NavigationView;
+
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
 import com.google.android.material.snackbar.Snackbar;
-
 //Favourite list
 public class Favourite_list extends AppCompatActivity  implements OnNavigationItemSelectedListener  {
 
-
     private ListView listView;
-    private com.example.finalproject.Adapter adapter;
+    private Adapter adapter;
 
     //Article array
-    ArrayList<com.example.finalproject.Article> articleArrayList = new ArrayList<>();
+    ArrayList<Article> articleArrayList = new ArrayList<>();
     private EditText articleTitle;
     private EditText articleUrl;
     private EditText articleSection;
+    private String nameStr;
     private String titleStr;
     private String urlStr;
-    private String sectionStr;
     private Intent intent;
     private Toolbar toolbar;
     private AlertDialog.Builder alertdialogBuilder;
@@ -53,10 +54,10 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
     private NavigationView navView;
     private ContentValues newRowValues;
     private SQLiteDatabase db;
-    private com.example.finalproject.Article article;
+    private Article article;
+    private String artName;
     private String artTitle;
     private String artUrl;
-    private String artSection;
     private long newId;
     private MyOpener dbOpener;
     private Cursor results;
@@ -102,7 +103,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
         navView = findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener((OnNavigationItemSelectedListener) this);
 
-        adapter = new com.example.finalproject.Adapter(articleArrayList, getApplicationContext());
+        adapter = new Adapter(articleArrayList, getApplicationContext());
         listView.setAdapter(adapter);
         loadDataFromDatabase();
 
@@ -117,13 +118,12 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 titleStr = articleTitle.getText().toString();
                 urlStr = articleUrl.getText().toString();
                 sectionStr[0] = articleSection.getText().toString();
-                if (!titleStr.isEmpty() && !urlStr.isEmpty() && !sectionStr.isEmpty()) {
+                if (!nameStr.isEmpty() && !titleStr.isEmpty() && !urlStr.isEmpty()) {
                     newRowValues.put(MyOpener.COL_TITLE, titleStr);
                     newRowValues.put(MyOpener.COL_URL, urlStr);
                     newRowValues.put(MyOpener.COL_SECTION, sectionStr[0]);
                     newId = db.insert(MyOpener.TABLE_NAME, null, newRowValues);
-
-                    article = new com.example.finalproject.Article(titleStr, urlStr, sectionStr,   true, newId);
+                    article = new Article(nameStr, titleStr, urlStr, true, newId);
                     articleArrayList.add(article);
                     articleTitle.setText("");
                     articleUrl.setText("");
@@ -154,6 +154,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
                 article = articleArrayList.get(position);
 
+
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(article.getUrl()));
                 startActivity(intent);
@@ -165,7 +166,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
 
                 alertdialogBuilder = new AlertDialog.Builder(Favourite_list.this);
                 alertdialogBuilder.setTitle(getString(R.string.delete));
@@ -188,9 +188,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
                         Toast.makeText(getApplicationContext(), getString(R.string.artDelete), Toast.LENGTH_LONG).show();
                     }
-
-                    private void deleteArticleFromDB(Article article) {
-                    }
                 });
 
                 dialog = alertdialogBuilder.create();
@@ -200,7 +197,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -224,9 +220,11 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 alertdialogBuilder = new AlertDialog.Builder(Favourite_list.this);
                 alertdialogBuilder.setTitle(getString(R.string.helpMenu));
 
+
                 alertdialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
 
                     }
                 });
@@ -256,6 +254,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 intent = new Intent(Favourite_list.this, MainActivity.class);
                 startActivity(intent);
                 break;
+
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -269,38 +268,37 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
         db = dbOpener.getWritableDatabase();
 
         String[] columns = {MyOpener.COL_ID, MyOpener.COL_TITLE, MyOpener.COL_URL, MyOpener.COL_SECTION,};
-
         //cursor
         results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-        printCursor(results, db.getVersion());
+        //printCursor(results, db.getVersion());
 
         //Now results match the query.
+
         // find the column indices:
         int idColumnIndex = results.getColumnIndex(MyOpener.COL_ID);
         int titleColumnIndex = results.getColumnIndex(MyOpener.COL_TITLE);
         int urlColumnIndex = results.getColumnIndex(MyOpener.COL_URL);
-        int sectionColumnIndex = results.getColumnIndex(MyOpener.COL_SECTION);
+        int nameColumnIndex = results.getColumnIndex(MyOpener.COL_SECTION);
         results.moveToPosition(-1);
 
         while (results.moveToNext()) {
 
             titleStr = results.getString(titleColumnIndex);
             urlStr= results.getString(urlColumnIndex);
-            sectionStr= results.getString(sectionColumnIndex);
+            int sectionColumnIndex = 0;
+            String sectionStr = results.getString(sectionColumnIndex);
             newId = results.getLong(idColumnIndex);
 
-
-            articleArrayList.add(new com.example.finalproject.Article(titleStr, urlStr, sectionStr,true, newId));
+            articleArrayList.add(new Article(titleStr, urlStr, sectionStr,true, newId));
 
         }
-
 
     }
 
     //Update
-    protected void updateArticle(com.example.finalproject.Article article)
+    protected void updateArticle(Article article)
     {
-        //Represents a database row:
+        //Create a  to represent a database row:
         contentValues = new ContentValues();
         contentValues.put(MyOpener.COL_TITLE, article.getTitle());
         contentValues.put(MyOpener.COL_URL, article.getUrl());
@@ -311,27 +309,27 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
 
     }
 
+
     //Delete
-    protected void   deleteArticleFromDB(com.example.finalproject.Article article)
+    protected void   deleteArticleFromDB(Article article)
     {
         db.delete(MyOpener.TABLE_NAME, MyOpener.COL_ID + " = ?", new String[]{Long.toString(article.getId())});
     }
 
     //Print
-    public void printCursor(Cursor cursor, int version) {
+    /*public void printCursor(Cursor cursor, int version) {
+
         int colIndex = cursor.getColumnIndex(MyOpener.COL_TITLE);
+
         cursor.moveToFirst();
 
-        //Not working error, ????
         for (int i = 0; i < cursor.getCount(); i++) {
             String fn = cursor.getString(colIndex);
             Log.i("Section: ", (cursor.getString(cursor.getColumnIndex(MyOpener.COL_SECTION)) + " Title: " + (cursor.getString(cursor.getColumnIndex(MyOpener.COL_TITLE)))
                     + "Url:  " + (cursor.getString(cursor.getColumnIndex(MyOpener.COL_URL)))));
             cursor.moveToNext();
         }
-    }
+
+    }*/
+
 }
-
-
-
-
