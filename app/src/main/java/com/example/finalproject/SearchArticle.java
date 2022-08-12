@@ -24,7 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -100,8 +100,6 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
                 startActivity(intent);
 
             }
-
-
         });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -139,14 +137,10 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
 
-
-
-
                         Toast.makeText(getApplicationContext(), getString(R.string.confirm2), Toast.LENGTH_LONG).show();
                     }
 
                 });
-
 
 
                 AlertDialog dialog = alertdialogBuilder.create();
@@ -167,8 +161,6 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
         String articleTitle;
         String articleUrl;
         String articleSection;
-
-
 
 
         public boolean fileExistance(String fname) {
@@ -208,8 +200,6 @@ public class SearchArticle extends AppCompatActivity implements NavigationView.O
                     urlConnection.disconnect();
                 }
             }
-
-
 
             return sb.toString();
 

@@ -19,9 +19,6 @@ public class MyOpener extends SQLiteOpenHelper {
     //Column id
     public final static String COL_ID = "_id";
 
-    //Column Name
-    public final static String COL_NAME = "Name";
-
     //Column Title
     public final static String COL_TITLE= "Title";
 
@@ -30,8 +27,6 @@ public class MyOpener extends SQLiteOpenHelper {
 
     //Column Section
     public static final String COL_SECTION = "Section";
-
-
 
     //constructor
     public MyOpener(Context ctx)
@@ -47,19 +42,18 @@ public class MyOpener extends SQLiteOpenHelper {
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME);
 
         db.execSQL("CREATE TABLE " + TABLE_NAME + "( _id  INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_NAME  + " text,"
-                + COL_TITLE   + " text,"
-                + COL_URL + " text);");
-
+                + COL_TITLE  + " text,"
+                + COL_URL   + " text,"
+                + COL_SECTION + " text);");
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {   //Drop the old table:
+    {   //Drop old table:
         db.execSQL( "DROP TABLE IF EXISTS " + TABLE_NAME);
 
-        //Create the new table:
+        //Create new table:
         onCreate(db);
     }
 
@@ -73,7 +67,4 @@ public class MyOpener extends SQLiteOpenHelper {
         //Create the new table:
         onCreate(db);
     }
-
-
-
 }

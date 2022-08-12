@@ -14,7 +14,7 @@ public class Article {
 
     }
 
-    //parameters within the article
+    //parameters
     public Article(String title, String url, String section, boolean isFavourite, long id) {
         this.title = title;
         this.url = url;
@@ -55,7 +55,9 @@ public class Article {
     }
 
     //gets section
-    public String getSection() { return section; }
+    public String getSection() {
+        return section;
+    }
 
     //sets section
     public void setSection(String section) {
@@ -63,16 +65,17 @@ public class Article {
     }
 
     // isFavourite boolean
-    public boolean isFavourite () {
+    public boolean isFavourite() {
         return isFavourite;
     }
+
     //sets isFavourite boolean
-    public void setIsFavourite ( boolean isFavourite){
+    public void setIsFavourite(boolean isFavourite) {
         this.isFavourite = isFavourite;
     }
 
     //gets id
-    public long getId () {
+    public long getId() {
         return id;
     }
 }

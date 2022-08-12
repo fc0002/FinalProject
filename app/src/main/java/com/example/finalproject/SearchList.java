@@ -88,10 +88,7 @@ public class SearchList extends AppCompatActivity implements NavigationView.OnNa
 
         navView = findViewById(R.id.nav_view);
         navView.setNavigationItemSelectedListener(this);
-
-
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

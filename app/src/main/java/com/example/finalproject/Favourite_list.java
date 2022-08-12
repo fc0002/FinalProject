@@ -224,8 +224,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 alertdialogBuilder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-
                     }
                 });
                 AlertDialog dialog = alertdialogBuilder.create();
@@ -235,7 +233,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
         }
         return true;
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -254,7 +251,6 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
                 intent = new Intent(Favourite_list.this, MainActivity.class);
                 startActivity(intent);
                 break;
-
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -270,9 +266,7 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
         String[] columns = {MyOpener.COL_ID, MyOpener.COL_TITLE, MyOpener.COL_URL, MyOpener.COL_SECTION,};
         //cursor
         results = db.query(false, MyOpener.TABLE_NAME, columns, null, null, null, null, null, null);
-        //printCursor(results, db.getVersion());
-
-        //Now results match the query.
+        //printCursor
 
         // find the column indices:
         int idColumnIndex = results.getColumnIndex(MyOpener.COL_ID);
@@ -317,6 +311,8 @@ public class Favourite_list extends AppCompatActivity  implements OnNavigationIt
     }
 
     //Print
+
+    //print wasn't working for
     /*public void printCursor(Cursor cursor, int version) {
 
         int colIndex = cursor.getColumnIndex(MyOpener.COL_TITLE);
